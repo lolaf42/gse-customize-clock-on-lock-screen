@@ -144,5 +144,12 @@
       <default>'Default'</default>
     </key>
 
+    <key name="clock-position" type="s">
+      <default>'center'</default>
+      <summary>Clock position on screen</summary>
+      <description>Choose from: top-left, top-center, top-right, center, bottom-left, bottom-center, bottom-right, left-center, right-center</description>
+    </key>
+
+
   </schema>
 </schemalist>
