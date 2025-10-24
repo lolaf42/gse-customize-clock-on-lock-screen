@@ -16,10 +16,57 @@ const SHELL_VERSION = parseInt(Config.PACKAGE_VERSION.split(' ')[0]);
 const ModifiedClock = GObject.registerClass(
     class ModifiedClock extends St.BoxLayout {
         _init(settings, width) {
-            let initObj = {
-                style_class: 'unlock-dialog-clock',
-                y_align: Clutter.ActorAlign.CENTER,
-            };
+
+
+let initObj = {
+    style_class: 'unlock-dialog-clock',
+};
+
+const position = settings.get_string('clock-position') || 'center';
+
+switch (position) {
+    case 'top-left':
+        initObj.x_align = Clutter.ActorAlign.START;
+        initObj.y_align = Clutter.ActorAlign.START;
+        break;
+    case 'top-center':
+        initObj.x_align = Clutter.ActorAlign.CENTER;
+        initObj.y_align = Clutter.ActorAlign.START;
+        break;
+    case 'top-right':
+        initObj.x_align = Clutter.ActorAlign.END;
+        initObj.y_align = Clutter.ActorAlign.START;
+        break;
+    case 'bottom-left':
+        initObj.x_align = Clutter.ActorAlign.START;
+        initObj.y_align = Clutter.ActorAlign.END;
+        break;
+    case 'bottom-center':
+        initObj.x_align = Clutter.ActorAlign.CENTER;
+        initObj.y_align = Clutter.ActorAlign.END;
+        break;
+    case 'bottom-right':
+        initObj.x_align = Clutter.ActorAlign.END;
+        initObj.y_align = Clutter.ActorAlign.END;
+        break;
+    case 'left-center':
+        initObj.x_align = Clutter.ActorAlign.START;
+        initObj.y_align = Clutter.ActorAlign.CENTER;
+        break;
+    case 'right-center':
+        initObj.x_align = Clutter.ActorAlign.END;
+        initObj.y_align = Clutter.ActorAlign.CENTER;
+        break;
+    default:
+        initObj.x_align = Clutter.ActorAlign.CENTER;
+        initObj.y_align = Clutter.ActorAlign.CENTER;
+        break;
+}
+
+
+
+
+            
 
             if (SHELL_VERSION >= 48)
                 initObj.orientation = Clutter.Orientation.VERTICAL;
