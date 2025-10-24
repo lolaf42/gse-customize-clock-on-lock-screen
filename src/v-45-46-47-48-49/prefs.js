@@ -55,6 +55,37 @@ export default class CustomizeClockExtensionPreferences extends ExtensionPrefere
         window.add(pageThree);
         window.add(pageFour);
 
+const pageFive = new Adw.PreferencesPage({
+    title: 'Clock Position',
+    icon_name: 'preferences-system-symbolic',
+});
+
+const positionGroup = new Adw.PreferencesGroup({ title: 'Position' });
+const positionOptions = [
+    'top-left', 'top-center', 'top-right',
+    'left-center', 'center', 'right-center',
+    'bottom-left', 'bottom-center', 'bottom-right'
+];
+
+const model = new Gtk.StringList();
+positionOptions.forEach(opt => model.append(opt));
+
+const comboRow = new Adw.ComboRow({ title: 'Clock Position', model });
+const current = window._settings.get_string('clock-position');
+comboRow.selected = positionOptions.indexOf(current);
+comboRow.connect('notify::selected', () => {
+    const selected = positionOptions[comboRow.selected];
+    window._settings.set_string('clock-position', selected);
+});
+
+positionGroup.add(comboRow);
+pageFive.add(positionGroup);
+window.add(pageFive);
+
+
+
+
+        
         window.set_default_size(800, 800);
     }
 
